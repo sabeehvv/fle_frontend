@@ -104,7 +104,7 @@ const Navbar = () => {
               backgroundClip: "text",
               WebkitBackgroundClip: "text",
               color: "transparent",
-              fontWeight:"bolder"
+              fontWeight: "bolder",
             }}
           >
             FLE

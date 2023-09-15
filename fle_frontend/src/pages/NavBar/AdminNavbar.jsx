@@ -110,6 +110,12 @@ const Navbar = ({ onSearchChange }) => {
               </Link>
               <Button
                 color="inherit"
+                onClick={() => navigate("/admin/banners")}
+              >
+                Banners
+              </Button>
+              <Button
+                color="inherit"
                 onClick={() => navigate("/admin/userlist")}
               >
                 UserList
@@ -120,6 +126,7 @@ const Navbar = ({ onSearchChange }) => {
               >
                 Events
               </Button>
+
               {userInfo.id ? (
                 <Button color="inherit" onClick={logoutHandler}>
                   Logout Admin <br /> {userInfo.first_name}

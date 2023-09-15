@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Typography, Button, Grid } from "@mui/material";
 import { Link } from "react-router-dom";
 
-const NewsFeed = () => {
+const NewsFeed = ({ Announcement }) => {
   return (
     <Container
       maxWidth="lg"
@@ -15,10 +15,7 @@ const NewsFeed = () => {
         <Typography variant="h5" gutterBottom>
           Special Announcement
         </Typography>
-        <Typography variant="body3">
-          💃Join FLE Dancing Circle on 20th Aug 6pm at Yogisthan. This will be a
-          conmunity crowdfunded event. For partcipation & contribition
-        </Typography>
+        <Typography variant="body3">{Announcement}</Typography>
         <br />
         <Link to="/events" style={{ textDecoration: "none", color: "inherit" }}>
           <Button

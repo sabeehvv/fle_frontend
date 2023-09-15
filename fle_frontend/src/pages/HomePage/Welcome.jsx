@@ -2,7 +2,7 @@ import React from "react";
 import { Typography, Paper, Grid } from "@mui/material";
 import ReactPlayer from "react-player";
 
-const WelcomePage = () => {
+const WelcomePage = ({ Video_url }) => {
   return (
     <div style={{ paddingTop: "70px", minHeight: "100vh", margin: "0px" }}>
       <Grid container margin={"0px"}>
@@ -19,7 +19,7 @@ const WelcomePage = () => {
                 style={{
                   fontFamily: "Your-Special-Font",
                   fontSize: "40px",
-                  color:"#a3d637"
+                  color: "#a3d637",
                 }}
               >
                 Free & Abundant Living Experiments
@@ -56,7 +56,7 @@ const WelcomePage = () => {
             }}
           >
             <ReactPlayer
-              url="https://www.youtube.com/watch?v=668nUCeBHyY"
+              url={Video_url}
               playing={true}
               muted={true}
               loop={true}
@@ -83,6 +83,5 @@ const WelcomePage = () => {
     </div>
   );
 };
-
 
 export default WelcomePage;

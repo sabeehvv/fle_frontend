@@ -4,13 +4,13 @@ import PageNotFound from "./components/PageNotFound/PageNotFound";
 
 import { BrowserRouter, Navigate, Routes, Route } from "react-router-dom";
 import LoginPage from "./pages/loginpage";
-import Home from "./pages/HomePafe/Homepage";
+import Home from "./pages/HomePage/Homepage";
 import { useSelector } from "react-redux";
 import { useMemo } from "react";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import Googletest from "./pages/HomePafe/Googletest";
+import Googletest from "./pages/HomePage/Googletest";
 import { Toaster } from "react-hot-toast";
 import AdminUser from "./pages/AdminPage/AdminUser";
 import UserProfileUpdate from "./pages/UserProfile/UserProfile";
@@ -27,6 +27,7 @@ import AdminHome from "./pages/AdminPage/AdminHome";
 import AuthRequire from "./components/PrivateRout/AuthRequire";
 import UnAuth from "./components/PrivateRout/UnAuth";
 import ContributionList from "./pages/Contribution_list/ContributionList";
+import BannerDashboard from "./pages/AdminPage/Banners/BannerDashboard";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -78,6 +79,7 @@ function App() {
                 <Route path="" element={<AdminHome />} />
                 <Route path="userlist" element={<AdminUser />} />
                 <Route path="eventlist" element={<AdminEventListPage />} />
+                <Route path="banners" element={<BannerDashboard />} />
               </Route>
             </Route>
             {/* ADMIN END */}
