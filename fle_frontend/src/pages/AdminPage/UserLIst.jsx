@@ -71,57 +71,53 @@ const AdminPage = () => {
         <Loading />
       ) : (
         <>
-          <div
-            style={{ paddingTop: "100px", minHeight: "100vh", margin: "0px" }}
-          >
-            <Container maxWidth="xl">
-              <Typography variant="h4" align="center" gutterBottom>
-                Event List
-              </Typography>
-              <TableContainer component={Paper}>
-                <Table>
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>ID</TableCell>
-                      <TableCell>First Name</TableCell>
-                      <TableCell>Last Name</TableCell>
-                      <TableCell>Email</TableCell>
-                      <TableCell>Phone Number</TableCell>
-                      <TableCell>Email Verified</TableCell>
-                      <TableCell>Block</TableCell>
+          <Container maxWidth="xl" style={{ marginTop: "100px" }}>
+            <Typography variant="h3" align="center" gutterBottom>
+              User List
+            </Typography>
+            <TableContainer component={Paper}>
+              <Table>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>ID</TableCell>
+                    <TableCell>First Name</TableCell>
+                    <TableCell>Last Name</TableCell>
+                    <TableCell>Email</TableCell>
+                    <TableCell>Phone Number</TableCell>
+                    <TableCell>Email Verified</TableCell>
+                    <TableCell>Block</TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {users.map((user) => (
+                    <TableRow key={user.id}>
+                      <TableCell>{user.id}</TableCell>
+                      <TableCell>{user.first_name}</TableCell>
+                      <TableCell>{user.last_name}</TableCell>
+                      <TableCell>{user.email}</TableCell>
+                      <TableCell>{user.mobile}</TableCell>
+                      <TableCell>
+                        {user.is_emailverified ? (
+                          <CheckIcon style={{ color: green[500] }} />
+                        ) : (
+                          <ClearIcon style={{ color: red[500] }} />
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        <Button
+                          variant="outlined"
+                          color={!user.is_active ? "secondary" : "primary"}
+                          onClick={() => handleBlockUser(user.id)}
+                        >
+                          {!user.is_active ? "Unblock" : "Block"}
+                        </Button>
+                      </TableCell>
                     </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {users.map((user) => (
-                      <TableRow key={user.id}>
-                        <TableCell>{user.id}</TableCell>
-                        <TableCell>{user.first_name}</TableCell>
-                        <TableCell>{user.last_name}</TableCell>
-                        <TableCell>{user.email}</TableCell>
-                        <TableCell>{user.mobile}</TableCell>
-                        <TableCell>
-                          {user.is_emailverified ? (
-                            <CheckIcon style={{ color: green[500] }} />
-                          ) : (
-                            <ClearIcon style={{ color: red[500] }} />
-                          )}
-                        </TableCell>
-                        <TableCell>
-                          <Button
-                            variant="outlined"
-                            color={!user.is_active ? "secondary" : "primary"}
-                            onClick={() => handleBlockUser(user.id)}
-                          >
-                            {!user.is_active ? "Unblock" : "Block"}
-                          </Button>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Container>
-          </div>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
+          </Container>
         </>
       )}
     </>

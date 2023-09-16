@@ -16,7 +16,7 @@ import AdminUser from "./pages/AdminPage/AdminUser";
 import UserProfileUpdate from "./pages/UserProfile/UserProfile";
 import CreateEventPage from "./pages/Events/CreateEvents";
 import CreateEventMain from "./pages/Events/index";
-import AdminEventListPage from "./pages/AdminPage/EventList";
+import AdminEventListPage from "./pages/AdminPage/EventList/EventList";
 import EventsPage from "./pages/EventList/EventsIndex";
 import EventDetails from "./pages/EventDetailPage/EventDetail";
 import EventDetail from "./pages/EventDetailPage/EventDetailsIndex";
