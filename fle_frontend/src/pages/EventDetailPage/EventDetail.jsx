@@ -8,22 +8,21 @@ import {
   Link,
   Divider,
   Paper,
-  Card,
   CardContent,
   CardMedia,
-  List,
-  ListItem,
-  ListItemText,
   Breadcrumbs,
-  Box,
   Toolbar,
 } from "@mui/material";
 import axiosInstance from "../../components/Axios/Axios";
 import { baseUrl } from "../../utils/constants";
+import EventRegistrationModal from "./RegistrationModal";
 
 const EventDetails = () => {
   const { event_id } = useParams();
   const [eventDetails, setEventDetails] = useState(null);
+  const [participant, setparticipant] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [availableSlots, setAvailableSlots] = useState(0);
 
   function formatDate(date_and_time) {
     const date = new Date(date_and_time);
@@ -71,7 +70,8 @@ const EventDetails = () => {
     axiosInstance
       .get(`events/eventlist/detail/${event_id}/`)
       .then((response) => {
-        setEventDetails(response.data);
+        setEventDetails(response.data.event);
+        setparticipant(response.data.participant);
         console.log(response.data);
       })
       .catch((error) => {
@@ -82,6 +82,22 @@ const EventDetails = () => {
   useEffect(() => {
     fetchData();
   }, [event_id]);
+
+  useEffect(() => {
+    if (eventDetails) {
+      const availableSlots =
+        eventDetails.maximum_participants - eventDetails.current_participants;
+      setAvailableSlots(availableSlots);
+    }
+  }, [eventDetails]);
+
+  const openModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+  };
 
   if (!eventDetails) {
     return <div>Loading...</div>;
@@ -224,14 +240,49 @@ const EventDetails = () => {
             </Grid>
             <Grid item xs={12} sm={3}>
               <div style={{ textAlign: "right" }}>
-                <Button
-                  variant="contained"
-                  color="primary"
-                  href="/join"
-                  style={{ width: "120px", marginRight: "10px" }}
-                >
-                  Join
-                </Button>
+                {participant ? (
+                  <>
+                    {participant.rsvp_status === "Going" ? (
+                      <>
+                        <Button
+                          variant="contained"
+                          onClick={openModal}
+                          style={{
+                            width: "120px",
+                            marginRight: "10px",
+                            backgroundColor: "#a3d637",
+                          }}
+                        >
+                          You are Going
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        {" "}
+                        <Button
+                          variant="contained"
+                          onClick={openModal}
+                          style={{
+                            width: "120px",
+                            marginRight: "10px",
+                            backgroundColor: "#FFDD40",
+                          }}
+                        >
+                          in queue ( {participant.waiting_position} )
+                        </Button>
+                      </>
+                    )}
+                  </>
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="primary"
+                    style={{ width: "120px", marginRight: "10px" }}
+                    onClick={openModal}
+                  >
+                    Join
+                  </Button>
+                )}
 
                 {eventDetails.crowdfunding_event ? (
                   <Button
@@ -250,6 +301,14 @@ const EventDetails = () => {
           </Grid>
         </Container>
       </Toolbar>
+      <EventRegistrationModal
+        event_id={event_id}
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        availableSlots={availableSlots - 1}
+        fetchData={fetchData}
+        participant={participant ? participant : false}
+      />
     </div>
   );
 };
