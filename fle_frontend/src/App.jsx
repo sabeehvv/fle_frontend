@@ -14,11 +14,9 @@ import Googletest from "./pages/HomePage/Googletest";
 import { Toaster } from "react-hot-toast";
 import AdminUser from "./pages/AdminPage/AdminUser";
 import UserProfileUpdate from "./pages/UserProfile/UserProfile";
-import CreateEventPage from "./pages/Events/CreateEvents";
 import CreateEventMain from "./pages/Events/index";
 import AdminEventListPage from "./pages/AdminPage/EventList/EventList";
 import EventsPage from "./pages/EventList/EventsIndex";
-import EventDetails from "./pages/EventDetailPage/EventDetail";
 import EventDetail from "./pages/EventDetailPage/EventDetailsIndex";
 import ContributionPage from "./pages/contribution/contribution";
 import AdminAuth from "../src/components/PrivateRout/AdminAuth";
@@ -28,6 +26,7 @@ import AuthRequire from "./components/PrivateRout/AuthRequire";
 import UnAuth from "./components/PrivateRout/UnAuth";
 import ContributionList from "./pages/Contribution_list/ContributionList";
 import BannerDashboard from "./pages/AdminPage/Banners/BannerDashboard";
+import EditEventIndex from "./pages/EditEvent/index";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -58,6 +57,10 @@ function App() {
               <Route
                 path="/events/eventdetail/:event_id/"
                 element={<EventDetail />}
+              />
+              <Route
+                path="/events/edit/:event_id/"
+                element={<EditEventIndex />}
               />
             </Route>
 

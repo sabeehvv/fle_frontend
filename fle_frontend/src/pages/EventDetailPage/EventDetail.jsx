@@ -16,6 +16,8 @@ import {
 import axiosInstance from "../../components/Axios/Axios";
 import { baseUrl } from "../../utils/constants";
 import EventRegistrationModal from "./RegistrationModal";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const EventDetails = () => {
   const { event_id } = useParams();
@@ -23,6 +25,8 @@ const EventDetails = () => {
   const [participant, setparticipant] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [availableSlots, setAvailableSlots] = useState(0);
+  const userInfo = useSelector((state) => state.userInfo);
+  const navigate = useNavigate();
 
   function formatDate(date_and_time) {
     const date = new Date(date_and_time);
@@ -145,7 +149,7 @@ const EventDetails = () => {
                     {eventDetails.venue}
                   </Typography>
                   <Typography variant="subtitle1" color="textSecondary">
-                    Hosted By : {eventDetails.hosting_by}
+                    Hosted By : {eventDetails.hosting_by.first_name}
                   </Typography>
                 </CardContent>
 
@@ -240,61 +244,79 @@ const EventDetails = () => {
             </Grid>
             <Grid item xs={12} sm={3}>
               <div style={{ textAlign: "right" }}>
-                {participant ? (
+                {eventDetails.hosting_by.user_id === userInfo.id ? (
                   <>
-                    {participant.rsvp_status === "Going" ? (
-                      <>
-                        <Button
-                          variant="contained"
-                          onClick={openModal}
-                          style={{
-                            width: "120px",
-                            marginRight: "10px",
-                            backgroundColor: "#a3d637",
-                          }}
-                        >
-                          You are Going
-                        </Button>
-                      </>
-                    ) : (
-                      <>
-                        {" "}
-                        <Button
-                          variant="contained"
-                          onClick={openModal}
-                          style={{
-                            width: "120px",
-                            marginRight: "10px",
-                            backgroundColor: "#FFDD40",
-                          }}
-                        >
-                          in queue ( {participant.waiting_position} )
-                        </Button>
-                      </>
-                    )}
+                    <Button
+                      variant="contained"
+                      onClick={() => navigate(`/events/edit/${eventDetails.id}`)}
+                      style={{
+                        width: "120px",
+                        marginRight: "10px",
+                        backgroundColor: "#cf74d0",
+                      }}
+                    >
+                      Edit Event
+                    </Button>
                   </>
                 ) : (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    style={{ width: "120px", marginRight: "10px" }}
-                    onClick={openModal}
-                  >
-                    Join
-                  </Button>
-                )}
+                  <>
+                    {participant ? (
+                      <>
+                        {participant.rsvp_status === "Going" ? (
+                          <>
+                            <Button
+                              variant="contained"
+                              onClick={openModal}
+                              style={{
+                                width: "120px",
+                                marginRight: "10px",
+                                backgroundColor: "#a3d637",
+                              }}
+                            >
+                              You are Going
+                            </Button>
+                          </>
+                        ) : (
+                          <>
+                            {" "}
+                            <Button
+                              variant="contained"
+                              onClick={openModal}
+                              style={{
+                                width: "120px",
+                                marginRight: "10px",
+                                backgroundColor: "#FFDD40",
+                              }}
+                            >
+                              in queue ( {participant.waiting_position} )
+                            </Button>
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        style={{ width: "120px", marginRight: "10px" }}
+                        onClick={openModal}
+                      >
+                        Join
+                      </Button>
+                    )}
 
-                {eventDetails.crowdfunding_event ? (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    href={`/events/contribution/${eventDetails.id}`}
-                    style={{ width: "120px" }}
-                  >
-                    Contribute
-                  </Button>
-                ) : (
-                  <></>
+                    {eventDetails.crowdfunding_event ? (
+                      <Button
+                        variant="contained"
+                        color="primary"
+                        onClick={() => navigate(`/events/contribution/${eventDetails.id}`)}
+                        style={{ width: "120px" }}
+                      >
+                        Contribute
+                      </Button>
+                    ) : (
+                      <></>
+                    )}
+                  </>
                 )}
               </div>
             </Grid>

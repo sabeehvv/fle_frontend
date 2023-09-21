@@ -8,14 +8,12 @@ const NewsFeed = ({ Announcement }) => {
       maxWidth="lg"
       style={{ marginTop: "50px", marginBottom: "50px" }}
     >
-      <Typography variant="h4" align="center" gutterBottom>
-        News Feed
-      </Typography>
+      <Typography variant="h4" align="center" gutterBottom></Typography>
       <div style={{ padding: "30px 0", textAlign: "center" }}>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h4" gutterBottom>
           Special Announcement
         </Typography>
-        <Typography variant="body3">{Announcement}</Typography>
+        <p style={{ whiteSpace: "pre-line" }}>{Announcement}</p>
         <br />
         <Link to="/events" style={{ textDecoration: "none", color: "inherit" }}>
           <Button

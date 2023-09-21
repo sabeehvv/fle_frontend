@@ -99,7 +99,7 @@ const ContributionPage = () => {
     axiosInstance
       .get(`events/eventlist/detail/${event_id}/`)
       .then((response) => {
-        setEventDetails(response.data);
+        setEventDetails(response.data.event);
         console.log(response.data);
       })
       .catch((error) => {
@@ -239,7 +239,7 @@ const ContributionPage = () => {
                         <PersonIcon />
                       </IconWrapper>
                       <Typography>
-                        Hosted By: {eventDetails.hosting_by}
+                        Hosted By: {eventDetails.hosting_by.first_name}
                       </Typography>
                     </Grid>
                   </Grid>

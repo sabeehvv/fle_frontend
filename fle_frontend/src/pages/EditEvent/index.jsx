@@ -7,10 +7,10 @@ import {
   Toolbar,
   TextField,
 } from "@mui/material";
-import CreateEvents from "./CreateEvents";
+import EditEventPage from "./EditEvent";
 import NavBar from "../NavBar/NavBar";
 
-const CreateEventMain = () => {
+const EditEventIndex = () => {
   const isNonMobileScreen = useMediaQuery("(min-width:1000px)");
 
   return (
@@ -43,11 +43,11 @@ const CreateEventMain = () => {
             backdropFilter: "blur(80px)",
           }}
         >
-          <CreateEvents />
+          <EditEventPage />
         </Box>
       </Box>
     </>
   );
 };
 
-export default CreateEventMain;
+export default EditEventIndex;

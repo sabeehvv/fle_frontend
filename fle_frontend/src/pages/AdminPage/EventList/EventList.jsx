@@ -289,7 +289,7 @@ const AdminEventListPage = () => {
                       <img src={baseUrl + event.image} width="80" height="60" />
                     </a>
                   </TableCell>
-                  <TableCell>{event.hosting_by}</TableCell>
+                  <TableCell>{event.hosting_by.first_name}</TableCell>
                   <TableCell>{formatDate(event.date_and_time)}</TableCell>
                   <TableCell>{event.venue}</TableCell>
                   <TableCell>

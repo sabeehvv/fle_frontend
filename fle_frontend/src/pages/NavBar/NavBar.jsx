@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 import { googleLogout } from "@react-oauth/google";
-import { setProfile } from "../../redux_toolkit/valueSlice";
-import axiosInstance from "../../components/Axios/Axios";
 import {
   AppBar,
   Toolbar,
@@ -27,11 +24,8 @@ import logo from "../../images/icon.png";
 
 const Navbar = () => {
   const [mobileMenuAnchor, setMobileMenuAnchor] = useState(null);
-  const [is_authenticate, setAuthed] = useState(false);
-  const token = localStorage.getItem("token");
   const isMobile = window.innerWidth <= 768;
   const userInfo = useSelector((state) => state.userInfo);
-  const picture_url = useSelector((state) => state.profilePicture);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   let authTokens = null;
@@ -59,27 +53,6 @@ const Navbar = () => {
   const handleMobileMenuClose = () => {
     setMobileMenuAnchor(null);
   };
-
-  // const fetchUserDetail = async () => {
-  //   try {
-  //     console.log('run fetch')
-  //     const response = await axiosInstance.get("user/view/");
-  //     const userData = response.data.data;
-
-  //     dispatch(setProfile(userData));
-
-  //     console.log(userData, "mobile number");
-  //   } catch (error) {
-  //     console.log("error");
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   if (userInfo.id) {
-  //     console.log(userInfo.id,'user id')
-  //     fetchUserDetail();
-  //   }
-  // }, []);
 
   return (
     <AppBar

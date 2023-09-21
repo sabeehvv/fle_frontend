@@ -80,7 +80,7 @@ const EventRegistrationModal = ({
           )}
 
           <DialogTitle color={"revert-layer"}>
-            Did You Want to delete this Registration
+            Do you want to delete this registration?
           </DialogTitle>
 
           <DialogActions>
