@@ -10,7 +10,7 @@ function LandingPageForm() {
 
   const fetchHomeData = () => {
     axiosadminInstance
-      .get("home/landing-page-View/")
+      .get("admin/landing-page-View/")
       .then((response) => {
         console.log(response.data);
         setAnnouncement(response.data.announcement_text);
@@ -36,10 +36,10 @@ function LandingPageForm() {
 
       console.log("Video URL submitted:", videoUrl);
       console.log(response);
-      toast.success(response.data.message);
+      toast.success("Updated successfully");
     } catch (error) {
       console.log(error);
-      toast.error(error.response.data.error);
+      toast.error(error.response.data.video_url);
     }
   };
 
@@ -48,12 +48,12 @@ function LandingPageForm() {
     try {
       const response = await axiosadminInstance.patch(
         "admin/landing-page-update/",
-        { announcement: Announcement }
+        { announcement_text: Announcement }
       );
 
       console.log("Announcement submitted:", Announcement);
       console.log(response);
-      toast.success(response.data.message);
+      toast.success("Updated successfully");
     } catch (error) {
       console.log(error);
       toast.error(error.response.data.error);

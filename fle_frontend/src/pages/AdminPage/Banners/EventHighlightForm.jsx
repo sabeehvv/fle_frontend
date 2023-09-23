@@ -22,6 +22,7 @@ function EventHighlightForm() {
     axiosadminInstance
       .get("admin/EventHighlight/")
       .then((response) => {
+        console.log(response);
         setEventHighlights(response.data);
       })
       .catch((error) => {
@@ -81,7 +82,7 @@ function EventHighlightForm() {
       resetForm();
       setImageUrl("");
       console.log(response, "create events highlights");
-      toast.success(response.data.message);
+      toast.success("EventHighlight created successfully");
     } catch (error) {
       console.log(error);
       toast.error("somthing went wrong");
@@ -101,7 +102,7 @@ function EventHighlightForm() {
       );
 
       console.log(response, "hfgtyrg delete");
-      toast.success(response.data.message);
+      toast.success("EventHighlight created successfully");
 
       const updatedEventHighlights = eventHighlights.filter(
         (event) => event.id !== positionToDelete

@@ -68,9 +68,14 @@ const EditEventPage = () => {
     e.preventDefault();
 
     const sendForm = new FormData();
-    sendForm.append("date_and_time", selectedDate);
+    if (selectedDate !== null) {
+      sendForm.append("date_and_time", selectedDate);
+    }
+
     for (let value in formData) {
-      sendForm.append(value, formData[value]);
+      if (formData[value] !== null) {
+        sendForm.append(value, formData[value]);
+      }
     }
     console.log(sendForm, "dataaaaaaaaaaaa");
     console.log(formData);
