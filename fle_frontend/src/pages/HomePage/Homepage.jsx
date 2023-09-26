@@ -24,7 +24,7 @@ const Home = () => {
 
   useEffect(() => {
     fetchHomeData();
-  });
+  },[]);
   
   return (
     <div style={{ backgroundColor: "#e7e8e7" }}>

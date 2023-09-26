@@ -1,0 +1,24 @@
+.custom-tooltip {
+    background-color: #ffffffe8;
+    padding: 2px;
+  }
+  .tooltip-label{
+    color: #241c23;
+    font-style: italic;
+  }
+  
+  .tooltip-attendees {
+    color: #190df5;
+    font-style: italic;
+  }
+
+  .tooltip-contributions {
+    color: #82ca9d;
+    font-style: italic;
+  }
+
+  .tooltip-contributedAmount {
+    color: #ffc658;
+    font-style: italic;
+  }
+  

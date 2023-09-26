@@ -21,6 +21,7 @@ import toast from "react-hot-toast";
 import EventIcon from "@mui/icons-material/Event";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import PersonIcon from "@mui/icons-material/Person";
+import logo from "../../images/icon.png";
 
 const StyledPaper = styled(Paper)(({ theme }) => ({
   padding: theme.spacing(2),
@@ -135,7 +136,7 @@ const ContributionPage = () => {
       currency: currency,
       name: "Free Living Expirement",
       description: "CrowdFund Transaction",
-      image: "FLE",
+      image: logo,
       order_id: order_id,
       handler: async function (response) {
         const razorpay_paymentId = response.razorpay_payment_id;
