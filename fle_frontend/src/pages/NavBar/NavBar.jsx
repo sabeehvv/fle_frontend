@@ -128,8 +128,12 @@ const Navbar = () => {
               <Button color="inherit" onClick={() => navigate("/events")}>
                 Events
               </Button>
-              <Button color="inherit">Volunteers</Button>
-              <Button color="inherit">Contributions</Button>
+              <Button color="inherit" onClick={() => navigate("/volunteers")}>
+                Volunteers
+              </Button>
+              <Button color="inherit" onClick={() => navigate("/Contributors")}>
+                Contributors
+              </Button>
               {userInfo.id ? (
                 <>
                   <Button color="inherit" onClick={logoutHandler}>

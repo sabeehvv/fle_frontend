@@ -1,5 +1,5 @@
 // ContributionList.js
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Typography,
@@ -10,56 +10,104 @@ import {
   TableRow,
   TableCell,
   TableBody,
+  Breadcrumbs,
+  Grid,
 } from "@mui/material";
+import axiosadminInstance from "../../components/Axios/AdminAxios";
+import Navbar from "../NavBar/NavBar";
+import { Link } from "react-router-dom";
 
 const ContributionList = () => {
-  const contributions = [
-    {
-      contributorDisplayName: "John Doe",
-      contributedAmount: "50",
-      dateOfContribution: "2023-09-11",
-      eventName: "Event 1",
-      eventDate: "2023-09-15",
-      eventPlace: "Venue 1",
-    },
-  ];
+  const [contributors, setContributors] = useState(null);
+  const fetchData = () => {
+    axiosadminInstance
+      .get("events/Contributors/")
+      .then((response) => {
+        console.log(response.data);
+        setContributors(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
-    <Container
-      maxWidth="xl"
-      style={{ marginTop: "30px", marginBottom: "30px", paddingTop: "20px" }}
-    >
-      <Typography variant="h4" align="center" mt={2}>
-        Contribution List
-      </Typography>
-      <Paper sx={{ padding: 2 }}>
-        <TableContainer>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell>Contributor Display Name</TableCell>
-                <TableCell>Contributed Amount</TableCell>
-                <TableCell>Date of Contribution</TableCell>
-                <TableCell>Event Name</TableCell>
-                <TableCell>Event Date</TableCell>
-                <TableCell>Event Place</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {contributions.map((contribution, index) => (
-                <TableRow key={index}>
-                  <TableCell>{contribution.contributorDisplayName}</TableCell>
-                  <TableCell>{contribution.contributedAmount}</TableCell>
-                  <TableCell>{contribution.dateOfContribution}</TableCell>
-                  <TableCell>{contribution.eventName}</TableCell>
-                  <TableCell>{contribution.eventDate}</TableCell>
-                  <TableCell>{contribution.eventPlace}</TableCell>
+    <>
+      <Navbar />
+      <div
+        style={{
+          background: "#fff",
+          padding: "15px",
+          marginTop: "70px",
+        }}
+      >
+        <Container maxWidth="xl">
+          <Grid container>
+            <Breadcrumbs aria-label="breadcrumb">
+              <Link color="inherit" to="/">
+                Home
+              </Link>
+              <Typography color="textPrimary">Contributors</Typography>
+            </Breadcrumbs>
+          </Grid>
+        </Container>
+      </div>
+      <Container
+        maxWidth="xl"
+        style={{ marginTop: "20px", marginBottom: "30px" }}
+      >
+        <Paper sx={{ padding: 2 }}>
+          <TableContainer>
+            <Table>
+              <TableHead>
+                <TableRow>
+                  <TableCell>Contributor Given Name</TableCell>
+                  <TableCell>Contributed Amount</TableCell>
+                  <TableCell>Date of Contribution</TableCell>
+                  <TableCell>Event Name</TableCell>
+                  <TableCell>Event Date</TableCell>
+                  <TableCell>Event Place</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </Paper>
-    </Container>
+              </TableHead>
+              <TableBody>
+                {contributors ? (
+                  <>
+                    {contributors.map((contribution, index) => (
+                      <TableRow key={index}>
+                        <TableCell>
+                          {contribution.contributor_display_name}
+                        </TableCell>
+                        <TableCell>
+                          {contribution.contribution_amount}
+                        </TableCell>
+                        <TableCell>
+                          {new Date(
+                            contribution.contribution_date
+                          ).toLocaleString()}
+                        </TableCell>
+                        <TableCell>{contribution.event_name}</TableCell>
+                        <TableCell>
+                          {new Date(
+                            contribution.date_and_time
+                          ).toLocaleString()}
+                        </TableCell>
+                        <TableCell>{contribution.venue}</TableCell>
+                      </TableRow>
+                    ))}
+                  </>
+                ) : (
+                  <></>
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </Paper>
+      </Container>
+    </>
   );
 };
 

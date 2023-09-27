@@ -1,4 +1,3 @@
-import Form from "./pages/loginpage/Form";
 import VerifyEmail from "./components/EmailVerify/VerifyEmail";
 import PageNotFound from "./components/PageNotFound/PageNotFound";
 
@@ -27,6 +26,7 @@ import UnAuth from "./components/PrivateRout/UnAuth";
 import ContributionList from "./pages/Contribution_list/ContributionList";
 import BannerDashboard from "./pages/AdminPage/Banners/BannerDashboard";
 import EditEventIndex from "./pages/EditEvent/index";
+import VolunteerList from "./pages/volunteers/volunteers";
 
 function App() {
   const mode = useSelector((state) => state.mode);
@@ -44,7 +44,8 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/events" element={<EventsPage />} />
             <Route path="/verify-email/:token/" element={<VerifyEmail />} />
-            <Route path="/helloTesting" element={<ContributionList />} />
+            <Route path="/Contributors" element={<ContributionList />} />
+            <Route path="/volunteers" element={<VolunteerList />} />
 
             <Route element={<AuthRequire />}>
               <Route path="/accounts/profile/" element={<Googletest />} />

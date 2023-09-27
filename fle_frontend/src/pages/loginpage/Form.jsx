@@ -182,19 +182,24 @@ const Form = () => {
       console.log(response.data);
 
       toast.success(response.data.message);
-      toast(response.data.message_email,{
-        icon: '📩',
+      toast(response.data.message_email, {
+        icon: "📩",
         style: {
-          borderRadius: '10px',
-          background: '#333',
-          color: '#fff',
+          borderRadius: "10px",
+          background: "#333",
+          color: "#fff",
         },
       });
       setPageType("login");
     } catch (error) {
       console.log(error);
       if (error.response) {
-        toast.error(error.response.data.email[0]);
+        if (error.response.data.mobile) {
+          toast.error(error.response.data.mobile[0]);
+        }
+        if (error.response.data.email) {
+          toast.error(error.response.data.email[0]);
+        }
       }
       toast.error("Failed to register. Please try again.");
     }
@@ -218,7 +223,7 @@ const Form = () => {
       const pictureurl = response.data.picture_url;
 
       if (userInfo.is_superuser) {
-        Cookies.set("AdminTokens", tokenString , { expires: 7 });
+        Cookies.set("AdminTokens", tokenString, { expires: 7 });
         dispatch(setCredentials({ userInfo, role: "ADMIN" }));
         navigate("/admin/login");
       } else {
