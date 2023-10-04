@@ -18,6 +18,7 @@ import { baseUrl } from "../../utils/constants";
 import EventRegistrationModal from "./RegistrationModal";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Chat from "./ChatPage";
 
 const EventDetails = () => {
   const { event_id } = useParams();
@@ -166,9 +167,9 @@ const EventDetails = () => {
                 />
 
                 <CardContent>
-                  <Typography variant="body1">
+                  <p style={{ whiteSpace: "pre-line" }}>
                     {eventDetails.description}
-                  </Typography>
+                  </p>
                   <Divider sx={{ my: 2 }} />
 
                   <Typography variant="body2" color="textSecondary">
@@ -197,15 +198,13 @@ const EventDetails = () => {
           <Grid item xs={12} md={4}>
             <Paper
               sx={{
-                p: 2,
                 position: "sticky",
-                top: "90px",
+                top: "70px",
                 zIndex: 0,
                 background: "#fff",
-                marginBottom: "100px",
               }}
             >
-              <Paper elevation={3} sx={{ p: 2 }}></Paper>
+              <Chat event_id={event_id} />
             </Paper>
           </Grid>
         </Grid>
@@ -248,7 +247,9 @@ const EventDetails = () => {
                   <>
                     <Button
                       variant="contained"
-                      onClick={() => navigate(`/events/edit/${eventDetails.id}`)}
+                      onClick={() =>
+                        navigate(`/events/edit/${eventDetails.id}`)
+                      }
                       style={{
                         width: "120px",
                         marginRight: "10px",
@@ -308,7 +309,9 @@ const EventDetails = () => {
                       <Button
                         variant="contained"
                         color="primary"
-                        onClick={() => navigate(`/events/contribution/${eventDetails.id}`)}
+                        onClick={() =>
+                          navigate(`/events/contribution/${eventDetails.id}`)
+                        }
                         style={{ width: "120px" }}
                       >
                         Contribute

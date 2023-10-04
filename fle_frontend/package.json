@@ -46,6 +46,8 @@
     "redux-persist": "^6.0.0",
     "socket.io-client": "^4.7.2",
     "state": "^0.2.0",
+    "stream-chat": "^8.12.1",
+    "stream-chat-react": "^10.12.0",
     "vite-plugin-react": "^4.0.1",
     "yup": "^1.2.0"
   },

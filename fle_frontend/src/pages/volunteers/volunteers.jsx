@@ -1,5 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { Grid, Paper, Typography, Avatar, Container, Breadcrumbs, Button } from "@mui/material";
+import {
+  Grid,
+  Paper,
+  Typography,
+  Avatar,
+  Container,
+  Breadcrumbs,
+  Button,
+} from "@mui/material";
 import Navbar from "../NavBar/NavBar";
 import { Link } from "react-router-dom";
 import axiosadminInstance from "../../components/Axios/AdminAxios";
@@ -24,13 +32,9 @@ const VolunteerList = () => {
   }, []);
 
   const openGoogleForm = () => {
-    const googleFormUrl = 'https://forms.gle/gRNsMMsBFAPsHVvE9';
-    window.open(googleFormUrl, '_blank');
+    const googleFormUrl = "https://forms.gle/gRNsMMsBFAPsHVvE9";
+    window.open(googleFormUrl, "_blank");
   };
-
-  if (loading) {
-    return <p>Loading</p>;
-  }
 
   return (
     <>
@@ -44,33 +48,56 @@ const VolunteerList = () => {
             <Typography color="textPrimary">Volunteers</Typography>
           </Breadcrumbs>
         </Container>
-        {/* Button to open the Google Form */}
-        
       </div>
-      <Container maxWidth="lg" style={{ marginTop: "5px", marginBottom: "10px" }}>
-          <Button variant="contained" color="inherit" onClick={openGoogleForm}>
-            Apply as a Volunteer
-          </Button>
-        </Container>
-      <Container maxWidth="lg" style={{ marginTop: "5px", marginBottom: "30px" }}>
-        {volunteers.map((volunteer, index) => (
-          <Paper key={volunteer.id} sx={{ padding: 2, marginBottom: 2 }}>
-            <Grid container>
-              <Grid item xs={12} md={4} sx={{ textAlign: "center" }}>
-                <Avatar
-                  sx={{ width: "200px", height: "200px" }}
-                  alt={volunteer.user_first_name}
-                  src={baseUrl + volunteer.user_picture}
-                />
-              </Grid>
-              <Grid item xs={12} md={8} sx={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
-                <Typography variant="h5">{volunteer.user_first_name}</Typography>
-                <Typography variant="subtitle1">{volunteer.role}</Typography>
-                <Typography variant="body1">{volunteer.details}</Typography>
-              </Grid>
-            </Grid>
-          </Paper>
-        ))}
+      <Container
+        maxWidth="lg"
+        style={{ marginTop: "5px", marginBottom: "10px" }}
+      >
+        <Button variant="contained" color="inherit" onClick={openGoogleForm}>
+          Apply as a Volunteer
+        </Button>
+      </Container>
+      <Container
+        maxWidth="lg"
+        style={{ marginTop: "5px", marginBottom: "30px" }}
+      >
+        {volunteers ? (
+          <>
+            {volunteers.map((volunteer, index) => (
+              <Paper key={volunteer.id} sx={{ padding: 2, marginBottom: 2 }}>
+                <Grid container>
+                  <Grid item xs={12} md={4} sx={{ textAlign: "center" }}>
+                    <Avatar
+                      sx={{ width: "200px", height: "200px" }}
+                      alt={volunteer.user_first_name}
+                      src={baseUrl + volunteer.user_picture}
+                    />
+                  </Grid>
+                  <Grid
+                    item
+                    xs={12}
+                    md={8}
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Typography variant="h5">
+                      {volunteer.user_first_name}
+                    </Typography>
+                    <Typography variant="subtitle1">
+                      {volunteer.role}
+                    </Typography>
+                    <Typography variant="body1">{volunteer.details}</Typography>
+                  </Grid>
+                </Grid>
+              </Paper>
+            ))}
+          </>
+        ) : (
+          <></>
+        )}
       </Container>
     </>
   );
