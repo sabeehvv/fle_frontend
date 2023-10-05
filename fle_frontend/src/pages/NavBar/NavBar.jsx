@@ -11,7 +11,13 @@ import {
   TextField,
   Box,
   Avatar,
+  IconButton,
+  Popover,
+  ListItem,
+  Badge,
 } from "@mui/material";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import LogoutIcon from "@mui/icons-material/Logout";
 
 import { baseUrl } from "../../utils/constants";
 
@@ -22,12 +28,42 @@ import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import logo from "../../images/icon.png";
 
+import { initializeApp } from "firebase/app";
+import { getMessaging } from "firebase/messaging";
+import { onMessage } from "firebase/messaging";
+import { firebaseConfig } from "../../main";
+
 const Navbar = () => {
   const [mobileMenuAnchor, setMobileMenuAnchor] = useState(null);
   const isMobile = window.innerWidth <= 768;
   const userInfo = useSelector((state) => state.userInfo);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const app = initializeApp(firebaseConfig);
+  const messaging = getMessaging(app);
+  const [notification, setNotification] = useState([]);
+  const [notificationsAnchor, setNotificationsAnchor] = useState(null);
+  const [notificationsCount, setNotificationsCount] = useState(5);
+
+  const handleNotificationsClick = (event) => {
+    setNotificationsAnchor(event.currentTarget);
+  };
+
+  const handleNotificationsClose = () => {
+    setNotificationsAnchor(null);
+  };
+
+  useEffect(() => {
+    const unsubscribe = onMessage(messaging, (payload) => {
+      setNotification((prev) => [...prev, payload.notification]);
+      console.log("Message", payload);
+    });
+
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
   let authTokens = null;
   useEffect(() => {
     setTimeout(() => {
@@ -134,6 +170,11 @@ const Navbar = () => {
               <Button color="inherit" onClick={() => navigate("/Contributors")}>
                 Contributors
               </Button>
+              <IconButton color="inherit" onClick={handleNotificationsClick}>
+                <Badge badgeContent={notification.length} color="error">
+                  <NotificationsIcon />
+                </Badge>
+              </IconButton>
               {userInfo.id ? (
                 <>
                   <Button color="inherit" onClick={logoutHandler}>
@@ -141,7 +182,7 @@ const Navbar = () => {
                       to="/login"
                       style={{ textDecoration: "none", color: "inherit" }}
                     >
-                      Logout
+                      <LogoutIcon />
                     </Link>
                   </Button>
 
@@ -165,6 +206,27 @@ const Navbar = () => {
           )}
         </div>
       </Toolbar>
+      <Popover
+        open={Boolean(notificationsAnchor)}
+        anchorEl={notificationsAnchor}
+        onClose={handleNotificationsClose}
+        anchorOrigin={{
+          vertical: "bottom",
+          horizontal: "right",
+        }}
+        transformOrigin={{
+          vertical: "top",
+          horizontal: "right",
+        }}
+      >
+        <List>
+        {notification.map((notification,index) => (
+          <ListItem key={index}>
+            <strong>{notification.title}</strong>: {notification.body}
+          </ListItem>
+        ))}
+        </List>
+      </Popover>
     </AppBar>
   );
 };
