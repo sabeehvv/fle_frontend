@@ -1,15 +1,5 @@
-import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Grid,
-  Paper,
-  Typography,
-  Breadcrumbs,
-  Link,
-  Box,
-} from "@mui/material";
+import React from "react";
 import Navbar from "../NavBar/NavBar";
-import Rightside from "./Rightside";
 import EventDetails from "./EventDetail";
 
 const EventDetail = () => {

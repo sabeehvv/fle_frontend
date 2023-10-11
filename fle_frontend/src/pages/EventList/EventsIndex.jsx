@@ -19,6 +19,7 @@ import { Link as RouterLink } from "react-router-dom";
 const EventsPage = () => {
   const [events, setEvents] = useState([]);
   const [filters, setFilters] = useState({ date_and_time: "", venue: "" });
+  const [searchQuery, setSearchQuery] = useState("");
 
   // useEffect(() => {
   //   document.title = "FLE | Events";
@@ -42,9 +43,26 @@ const EventsPage = () => {
     setFilters(newFilters);
   };
 
+  const filteredEvents = events.filter((event) => {
+    const isSearchMatch = Object.values(event).some(
+      (attribute) =>
+        attribute &&
+        typeof attribute === "string" &&
+        attribute.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+
+    if (!isSearchMatch) return false;
+    return true;
+  });
+
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+    setCurrentPage(1);
+  };
+
   return (
     <div>
-      <Navbar />
+      <Navbar onSearchChange={handleSearchChange} />
       <div
         style={{
           background: "#fff", // Background color
@@ -100,11 +118,11 @@ const EventsPage = () => {
               <Box borderBottom={1} pb={1}>
                 <Typography variant="h2">Upcoming events</Typography>
               </Box>
-              <EventList events={events} filters={filters} />
+              <EventList events={filteredEvents} filters={filters} />
               <Box paddingTop={"30px"} borderBottom={1} pb={1}>
                 <Typography variant="h2">Past Events</Typography>
               </Box>
-              <PreviousEvent events={events} filters={filters} />
+              <PreviousEvent events={filteredEvents} filters={filters} />
             </Paper>
           </Grid>
         </Grid>

@@ -5,7 +5,6 @@ import {
   Toolbar,
   Typography,
   Button,
-  Menu,
   MenuItem,
   List,
   TextField,
@@ -15,14 +14,15 @@ import {
   Popover,
   ListItem,
   Badge,
+  Drawer,
 } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import LogoutIcon from "@mui/icons-material/Logout";
+import MenuIcon from "@mui/icons-material/Menu";
 
 import { baseUrl } from "../../utils/constants";
 
 import { logout } from "../../redux_toolkit/valueSlice";
-import { setCredentials } from "../../redux_toolkit/valueSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
@@ -33,8 +33,7 @@ import { getMessaging } from "firebase/messaging";
 import { onMessage } from "firebase/messaging";
 import { firebaseConfig } from "../../main";
 
-const Navbar = () => {
-  const [mobileMenuAnchor, setMobileMenuAnchor] = useState(null);
+const Navbar = ({ onSearchChange }) => {
   const isMobile = window.innerWidth <= 768;
   const userInfo = useSelector((state) => state.userInfo);
   const dispatch = useDispatch();
@@ -43,7 +42,17 @@ const Navbar = () => {
   const messaging = getMessaging(app);
   const [notification, setNotification] = useState([]);
   const [notificationsAnchor, setNotificationsAnchor] = useState(null);
-  const [notificationsCount, setNotificationsCount] = useState(5);
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+
+  const toggleDrawer = (open) => (event) => {
+    if (
+      event.type === "keydown" &&
+      (event.key === "Tab" || event.key === "Shift")
+    ) {
+      return;
+    }
+    setIsDrawerOpen(open);
+  };
 
   const handleNotificationsClick = (event) => {
     setNotificationsAnchor(event.currentTarget);
@@ -82,14 +91,6 @@ const Navbar = () => {
 
   console.log("welcome form navbar");
 
-  const handleMobileMenuOpen = (event) => {
-    setMobileMenuAnchor(event.currentTarget);
-  };
-
-  const handleMobileMenuClose = () => {
-    setMobileMenuAnchor(null);
-  };
-
   return (
     <AppBar
       position="fixed"
@@ -124,30 +125,101 @@ const Navbar = () => {
             variant="outlined"
             size="small"
             style={{ marginLeft: "16px", flexGrow: 0.3 }}
+            onChange={onSearchChange}
+            onClick={() => {
+              navigate("/events");
+            }}
           />
         </div>
         <div style={{ width: "50%", textAlign: "right" }}>
           {isMobile ? (
             <>
-              <Button color="inherit" onClick={handleMobileMenuOpen}>
-                Menu
-              </Button>
-              <Menu
-                anchorEl={mobileMenuAnchor}
-                open={Boolean(mobileMenuAnchor)}
-                onClose={handleMobileMenuClose}
+              <IconButton
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                onClick={toggleDrawer(true)}
               >
-                <List style={{ display: "flex", flexDirection: "column" }}>
-                  <MenuItem>Home</MenuItem>
-                  <MenuItem>About</MenuItem>
-                  <MenuItem>Get Involved</MenuItem>
-                  <MenuItem>Events</MenuItem>
-                  <MenuItem>Volunteers</MenuItem>
-                  <MenuItem>Contributions</MenuItem>
-                  <MenuItem>Login/Logout</MenuItem>
-                  <MenuItem>Profile</MenuItem>
-                </List>
-              </Menu>
+                <MenuIcon />
+              </IconButton>
+
+              <Drawer
+                anchor="right"
+                open={isDrawerOpen}
+                onClose={toggleDrawer(false)}
+              >
+                <div
+                  role="presentation"
+                  onClick={toggleDrawer(false)}
+                  onKeyDown={toggleDrawer(false)}
+                >
+                  <List style={{ width: "200px", padding: "16px" }}>
+                    <MenuItem
+                      onClick={() => {
+                        navigate("/");
+                      }}
+                    >
+                      Home
+                    </MenuItem>
+                    {/* <MenuItem >About</MenuItem> */}
+                    <MenuItem
+                      onClick={() => {
+                        navigate("/events");
+                      }}
+                    >
+                      Events
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        navigate("/volunteers");
+                      }}
+                    >
+                      Volunteers
+                    </MenuItem>
+                    <MenuItem
+                      onClick={() => {
+                        navigate("/contributors");
+                      }}
+                    >
+                      Contributors
+                    </MenuItem>
+                    {userInfo.id ? (
+                      <>
+                        <MenuItem
+                          onClick={() => {
+                            logoutHandler();
+                          }}
+                        >
+                          <Link
+                            to="/login"
+                            style={{ textDecoration: "none", color: "inherit" }}
+                          >
+                            <LogoutIcon />
+                          </Link>
+                        </MenuItem>
+                        <MenuItem
+                          onClick={() => {
+                            navigate("/profile");
+                          }}
+                        >
+                          <Avatar
+                            src={baseUrl + userInfo.picture}
+                            alt="Profile"
+                          />
+                        </MenuItem>
+                      </>
+                    ) : (
+                      <MenuItem
+                        onClick={() => {
+                          navigate("/login");
+                        }}
+                      >
+                        Login
+                      </MenuItem>
+                    )}
+                  </List>
+                </div>
+              </Drawer>
             </>
           ) : (
             <Box textAlign="right">
@@ -159,7 +231,7 @@ const Navbar = () => {
                   Home
                 </Link>
               </Button>
-              <Button color="inherit">About</Button>
+              {/* <Button color="inherit">About</Button> */}
               {/* <Button color="inherit">Get Involved</Button> */}
               <Button color="inherit" onClick={() => navigate("/events")}>
                 Events
@@ -200,8 +272,6 @@ const Navbar = () => {
                   </Link>
                 </Button>
               )}
-
-              {/* <Button color="inherit">Profile</Button> */}
             </Box>
           )}
         </div>
@@ -220,11 +290,11 @@ const Navbar = () => {
         }}
       >
         <List>
-        {notification.map((notification,index) => (
-          <ListItem key={index}>
-            <strong>{notification.title}</strong>: {notification.body}
-          </ListItem>
-        ))}
+          {notification.map((notification, index) => (
+            <ListItem key={index}>
+              <strong>{notification.title}</strong>: {notification.body}
+            </ListItem>
+          ))}
         </List>
       </Popover>
     </AppBar>

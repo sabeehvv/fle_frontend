@@ -1,9 +1,18 @@
-import React from 'react';
-import { Card, CardContent, CardMedia, Typography } from '@mui/material';
+import React from "react";
+import { Card, CardContent, CardMedia, Typography } from "@mui/material";
 import { baseUrl } from "../../utils/constants";
 
-const EventItem = ({ event }) => {
+import EventIcon from "@mui/icons-material/Event";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import PeopleIcon from "@mui/icons-material/People";
 
+const textStyle = {
+  fontFamily: "cursive",
+  fontSize: "18px",
+  margin: "10px 0",
+};
+
+const EventItem = ({ event }) => {
   function formatDate(date_and_time) {
     const date = new Date(date_and_time);
 
@@ -47,30 +56,41 @@ const EventItem = ({ event }) => {
     return formattedDate;
   }
 
-
   return (
     <Card>
-      <CardMedia
-        component="img"
+      <img
+        src={baseUrl + event.image}
         alt={event.event_name}
-        height="200"
-        image={baseUrl+event.image}
+        style={{ width: "100%", borderRadius: "50px", padding: "10px" }}
       />
       <CardContent>
-  <Typography variant="h5">
-    {event.event_name}
-  </Typography>
-  <Typography>
-    Date: {formatDate(event.date_and_time)}
-  </Typography>
-  <Typography>
-    venue: {event.venue}
-  </Typography>
-  <Typography >
-    Description: {event.description}
-  </Typography>
-</CardContent>
-
+        <Typography variant="h3" style={textStyle}>
+          <span style={{ fontWeight: "bold" }}>
+            <span
+              style={{
+                textDecoration: "underline",
+                borderBottom: "1px solid #000",
+              }}
+            >
+              {event.event_name}
+            </span>
+          </span>
+        </Typography>
+        <Typography style={textStyle}>
+          <EventIcon style={{ verticalAlign: "middle", marginRight: "5px" }} />
+          {formatDate(event.date_and_time)}
+        </Typography>
+        <Typography style={textStyle}>
+          <LocationOnIcon
+            style={{ verticalAlign: "middle", marginRight: "5px" }}
+          />
+          Venue: {event.venue}
+        </Typography>
+        <Typography style={textStyle}>
+          <PeopleIcon style={{ verticalAlign: "middle", marginRight: "5px" }} />
+          Participated: {event.current_participants} Members
+        </Typography>
+      </CardContent>
     </Card>
   );
 };

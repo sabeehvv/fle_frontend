@@ -111,7 +111,7 @@ const EventItem = ({ event }) => {
             </Typography> */}
             {event.crowdfunding_event ? (
               <Typography style={textStyle}>
-                 &#8377; Crowd Fund Target: {event.target_amount}
+                &#8377; Crowd Fund Target: {event.target_amount}
               </Typography>
             ) : (
               <></>

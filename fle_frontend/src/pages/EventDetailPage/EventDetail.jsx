@@ -28,6 +28,7 @@ const EventDetails = () => {
   const [availableSlots, setAvailableSlots] = useState(0);
   const userInfo = useSelector((state) => state.userInfo);
   const navigate = useNavigate();
+  const isMobile = window.innerWidth <= 768;
 
   function formatDate(date_and_time) {
     const date = new Date(date_and_time);
@@ -202,6 +203,7 @@ const EventDetails = () => {
                 top: "70px",
                 zIndex: 0,
                 background: "#fff",
+                ...(isMobile && { paddingBottom: "80px" }),
               }}
             >
               <Chat event_id={event_id} />
