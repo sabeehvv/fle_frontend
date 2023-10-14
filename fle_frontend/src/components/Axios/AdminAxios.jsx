@@ -5,7 +5,7 @@ import dayjs from 'dayjs';
 import jwt_decode from 'jwt-decode';
 
 
-const  baseURL = "http://127.0.0.1:8000/api/"
+const  baseURL = "https://shoppershope.online/api/"
 
 let authTokens = Cookies.get('AdminTokens') ? JSON.parse(Cookies.get('AdminTokens')) : null;
 
