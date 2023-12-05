@@ -50,7 +50,7 @@ function VolunteersManage() {
   const validationSchema = Yup.object({
     user_id: Yup.number().required("User is required"),
     role: Yup.string()
-      .max(30, "Role must be at most 30 characters")
+      .max(100, "Role must be at most 100 characters")
       .required("Role is required"),
     details: Yup.string().required("Details is required"),
     position: Yup.number().required("Position is required"),

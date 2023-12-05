@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import Navbar from "../NavBar/NavBar";
 import { Link } from "react-router-dom";
-import axiosadminInstance from "../../components/Axios/AdminAxios";
+import publicInstance from "../../components/Axios/PublicAxios";
 import { baseUrl } from "../../utils/constants";
 
 const VolunteerList = () => {
@@ -20,7 +20,7 @@ const VolunteerList = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosadminInstance.get("home/Volunteers-View/");
+        const response = await publicInstance.get("home/Volunteers-View/");
         setVolunteers(response.data);
         setLoading(false);
       } catch (error) {

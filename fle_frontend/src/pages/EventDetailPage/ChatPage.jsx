@@ -19,7 +19,7 @@ const Chat = ({ event_id }) => {
   const chatContainerRef = useRef(null);
   // const websocketUrl = `ws://127.0.0.1:8000/ws/event/${event_id}/chat/`;
 
-  const websocketUrl = `ws://18.234.230.229/ws/event/${event_id}/chat/`;
+  const websocketUrl = `wss://shoppershope.online/ws/event/${event_id}/chat/`;
 
   const messageDayDate = (timestamp) => {
     const messageDate = new Date(timestamp);

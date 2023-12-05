@@ -14,13 +14,14 @@ import {
   Grid,
 } from "@mui/material";
 import axiosadminInstance from "../../components/Axios/AdminAxios";
+import publicInstance from "../../components/Axios/PublicAxios";
 import Navbar from "../NavBar/NavBar";
 import { Link } from "react-router-dom";
 
 const ContributionList = () => {
   const [contributors, setContributors] = useState(null);
   const fetchData = () => {
-    axiosadminInstance
+    publicInstance
       .get("events/Contributors/")
       .then((response) => {
         console.log(response.data);

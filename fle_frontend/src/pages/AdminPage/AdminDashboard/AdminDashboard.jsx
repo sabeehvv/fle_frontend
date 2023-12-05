@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import EventOverviewChart from "../../../components/Admin/EventChart";
 import UserCountPieChart from "../../../components/Admin/UsersChart";
-import ContributionChart from "../../../components/Admin/ContributionChart";
 import axiosadminInstance from "../../../components/Axios/AdminAxios";
 import { Container, Typography, Grid, Paper } from "@mui/material";
-import CountUp from "react-countup";
 
 function AdminDashboard() {
   const [usersData, setUsersData] = useState(null);
@@ -40,30 +38,19 @@ function AdminDashboard() {
         <Grid item xs={12} sm={4}>
           <Paper elevation={3} style={{ padding: "1rem" }}>
             <Typography variant="subtitle1">Total Users</Typography>
-            <CountUp end={totalUsers} duration={2} separator="," delay={0.5}>
-              {({ countUpRef }) => <Typography variant="h4" ref={countUpRef} />}
-            </CountUp>
+            <Typography variant="h4">{totalUsers}</Typography>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={4}>
           <Paper elevation={3} style={{ padding: "1rem" }}>
             <Typography variant="subtitle1">Total Events</Typography>
-            <CountUp end={totalEvents} duration={2} separator="," delay={0.5}>
-              {({ countUpRef }) => <Typography variant="h4" ref={countUpRef} />}
-            </CountUp>
+            <Typography variant="h4">{totalEvents}</Typography>
           </Paper>
         </Grid>
         <Grid item xs={12} sm={4}>
           <Paper elevation={3} style={{ padding: "1rem" }}>
             <Typography variant="subtitle1">Total Contributions</Typography>
-            <CountUp
-              end={totalContributions}
-              duration={2}
-              separator=","
-              delay={0.5}
-            >
-              {({ countUpRef }) => <Typography variant="h4" ref={countUpRef} />}
-            </CountUp>
+            <Typography variant="h4">{totalContributions}</Typography>
           </Paper>
         </Grid>
       </Grid>
@@ -78,7 +65,7 @@ function AdminDashboard() {
       </Grid>
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Paper elevation={3} style={{ padding: "1rem" }}>
+          <Paper elevation={1} style={{ padding: "1rem" }}>
             <EventOverviewChart eventData={eventsData} />
           </Paper>
         </Grid>

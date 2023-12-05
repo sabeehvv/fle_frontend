@@ -53,7 +53,7 @@ function EventHighlightForm() {
 
   const validationSchema = Yup.object({
     heading: Yup.string()
-      .max(30, "Heading must be at most 30 characters")
+      .max(100, "Heading must be at most 100 characters")
       .required("Heading is required"),
     description: Yup.string().required("Description is required"),
     position: Yup.number().required("Position is required"),
