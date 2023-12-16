@@ -15,16 +15,18 @@ import {
   ListItem,
   Badge,
   Drawer,
+  useTheme,
 } from "@mui/material";
 import NotificationsIcon from "@mui/icons-material/Notifications";
+import { DarkMode, LightMode } from "@mui/icons-material";
 import LogoutIcon from "@mui/icons-material/Logout";
 import MenuIcon from "@mui/icons-material/Menu";
 
 import { baseUrl } from "../../utils/constants";
 
-import { logout } from "../../redux_toolkit/valueSlice";
+import { logout, setMode } from "../../redux_toolkit/valueSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate ,useLocation} from "react-router-dom";
 import Cookies from "js-cookie";
 import logo from "../../images/icon.png";
 
@@ -43,7 +45,11 @@ const Navbar = ({ onSearchChange }) => {
   const [notification, setNotification] = useState([]);
   const [notificationsAnchor, setNotificationsAnchor] = useState(null);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const location = useLocation();
+  const isNotRootPath = location.pathname !== "/";
+  console.log(location,'location')
 
+  const theme = useTheme();
   const toggleDrawer = (open) => (event) => {
     if (
       event.type === "keydown" &&
@@ -94,7 +100,7 @@ const Navbar = ({ onSearchChange }) => {
   return (
     <AppBar
       position="fixed"
-      style={{ backgroundColor: "rgba(255, 255, 255, 0.8)" }}
+      style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}
     >
       <Toolbar>
         <div style={{ display: "flex", alignItems: "center", width: "50%" }}>
@@ -131,12 +137,25 @@ const Navbar = ({ onSearchChange }) => {
             }}
           />
         </div>
+        {isNotRootPath ? (
+          <>
+            <IconButton onClick={() => dispatch(setMode())}>
+              {theme.palette.mode === "dark" ? (
+                <DarkMode sx={{ fontSize: "25px" }} />
+              ) : (
+                <LightMode sx={{ color: "dark", fontSize: "25px" }} />
+              )}
+            </IconButton>
+          </>
+        ) : (
+          <></>
+        )}
+
         <div style={{ width: "50%", textAlign: "right" }}>
           {isMobile ? (
             <>
               <IconButton
                 edge="start"
-                color="inherit"
                 aria-label="menu"
                 onClick={toggleDrawer(true)}
               >
@@ -190,10 +209,7 @@ const Navbar = ({ onSearchChange }) => {
                             logoutHandler();
                           }}
                         >
-                          <Link
-                            to="/login"
-                            style={{ textDecoration: "none", color: "inherit" }}
-                          >
+                          <Link to="/login" style={{ textDecoration: "none" }}>
                             <LogoutIcon />
                           </Link>
                         </MenuItem>
@@ -223,54 +239,35 @@ const Navbar = ({ onSearchChange }) => {
             </>
           ) : (
             <Box textAlign="right">
-              <Button color="inherit">
-                <Link
-                  to="/"
-                  style={{ textDecoration: "none", color: "inherit" }}
-                >
-                  Home
-                </Link>
-              </Button>
+              <Button onClick={() => navigate("/")}>Home</Button>
               {/* <Button color="inherit">About</Button> */}
               {/* <Button color="inherit">Get Involved</Button> */}
-              <Button color="inherit" onClick={() => navigate("/events")}>
-                Events
-              </Button>
-              <Button color="inherit" onClick={() => navigate("/volunteers")}>
+              <Button onClick={() => navigate("/events")}>Events</Button>
+              <Button onClick={() => navigate("/volunteers")}>
                 Volunteers
               </Button>
-              <Button color="inherit" onClick={() => navigate("/Contributors")}>
+              <Button onClick={() => navigate("/Contributors")}>
                 Contributors
               </Button>
-              <IconButton color="inherit" onClick={handleNotificationsClick}>
+              <IconButton onClick={handleNotificationsClick}>
                 <Badge badgeContent={notification.length} color="error">
                   <NotificationsIcon />
                 </Badge>
               </IconButton>
               {userInfo.id ? (
                 <>
-                  <Button color="inherit" onClick={logoutHandler}>
-                    <Link
-                      to="/login"
-                      style={{ textDecoration: "none", color: "inherit" }}
-                    >
+                  <Button onClick={logoutHandler}>
+                    <Link to="/login" style={{ textDecoration: "none" }}>
                       <LogoutIcon />
                     </Link>
                   </Button>
 
-                  <Button color="inherit" onClick={() => navigate("/profile")}>
+                  <Button onClick={() => navigate("/profile")}>
                     <Avatar src={baseUrl + userInfo.picture} alt="Profile" />
                   </Button>
                 </>
               ) : (
-                <Button color="inherit">
-                  <Link
-                    to="/login"
-                    style={{ textDecoration: "none", color: "inherit" }}
-                  >
-                    Login
-                  </Link>
-                </Button>
+                <Button onClick={() => navigate("/login")}>Login</Button>
               )}
             </Box>
           )}

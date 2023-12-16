@@ -19,7 +19,7 @@ const WelcomePage = ({ Video_url }) => {
                 style={{
                   fontFamily: "Your-Special-Font",
                   fontSize: "40px",
-                  color: "#a3d637",
+                  // color: "#a3d637",
                 }}
               >
                 Free & Abundant Living Experiments

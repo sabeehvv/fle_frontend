@@ -41,7 +41,6 @@ const ContributionList = () => {
       <Navbar />
       <div
         style={{
-          background: "#fff",
           padding: "15px",
           marginTop: "70px",
         }}

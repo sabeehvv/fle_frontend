@@ -113,7 +113,6 @@ const EventDetails = () => {
     <div>
       <div
         style={{
-          background: "#fff",
           padding: "15px",
           marginTop: "70px",
         }}

@@ -65,7 +65,6 @@ const EventsPage = () => {
       <Navbar onSearchChange={handleSearchChange} />
       <div
         style={{
-          background: "#fff", // Background color
           padding: "15px",
           marginTop: "70px", // Adjust padding as needed
         }}

@@ -26,15 +26,17 @@ const Home = () => {
     fetchHomeData();
   },[]);
   
-  return (
+  return (<>
     <div style={{ backgroundColor: "#e7e8e7" }}>
       <AppBar position="static">
         <Navbar />
       </AppBar>
+      
       <WelcomePage Video_url={Video_url} />
+      </div>
       <NewsFeed Announcement={Announcement} />
       <MiddlePage />
-    </div>
+    </>
   );
 };
 

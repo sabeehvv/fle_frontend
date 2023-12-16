@@ -286,7 +286,7 @@ const Form = () => {
                     fontWeight="bold"
                     sx={{ gridColumn: "span 4" }}
                     fontSize="32px"
-                    color="rgba(33, 150, 243, 1.0)"
+                    // color="rgba(33, 150, 243, 1.0)"
                   >
                     Sign in
                   </Typography>

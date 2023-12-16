@@ -39,7 +39,7 @@ const VolunteerList = () => {
   return (
     <>
       <Navbar />
-      <div style={{ background: "#fff", padding: "15px", marginTop: "70px" }}>
+      <div style={{ padding: "15px", marginTop: "70px" }}>
         <Container maxWidth="xl">
           <Breadcrumbs aria-label="breadcrumb">
             <Link color="inherit" to="/">

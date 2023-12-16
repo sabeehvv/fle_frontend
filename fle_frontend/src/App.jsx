@@ -9,7 +9,6 @@ import { useMemo } from "react";
 import { createTheme } from "@mui/material/styles";
 import { themeSettings } from "./theme";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-import Googletest from "./pages/HomePage/Googletest.jsx";
 import { Toaster } from "react-hot-toast";
 import AdminUser from "./pages/AdminPage/AdminUser.jsx";
 import UserProfileUpdate from "./pages/UserProfile/UserProfile.jsx";
@@ -48,7 +47,6 @@ function App() {
             <Route path="/volunteers" element={<VolunteerList />} />
 
             <Route element={<AuthRequire />}>
-              <Route path="/accounts/profile/" element={<Googletest />} />
               <Route path="/createEvent/" element={<CreateEventMain />} />
               <Route path="/profile" element={<UserProfileUpdate />} />
               <Route
