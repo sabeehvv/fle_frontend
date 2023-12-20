@@ -13,7 +13,6 @@ const Home = () => {
   const fetchHomeData = () => {
     PublicAxios.get("home/landing-page-View/")
       .then((response) => {
-        console.log(response.data);
         setAnnouncement(response.data.announcement_text);
         setVideo_url(response.data.video_url);
       })

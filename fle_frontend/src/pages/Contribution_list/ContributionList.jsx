@@ -24,7 +24,6 @@ const ContributionList = () => {
     publicInstance
       .get("events/Contributors/")
       .then((response) => {
-        console.log(response.data);
         setContributors(response.data);
       })
       .catch((error) => {

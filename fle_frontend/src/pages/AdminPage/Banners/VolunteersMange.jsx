@@ -23,7 +23,6 @@ function VolunteersManage() {
     axiosadminInstance
       .get("admin/VounteersList/")
       .then((response) => {
-        console.log(response);
         setVolunteers(response.data.Volunteers);
         setUserList(response.data.users);
       })
@@ -37,7 +36,6 @@ function VolunteersManage() {
   }, []);
 
   useEffect(() => {
-    console.log(volunteers);
     const fetchedPositions = volunteers.map((event) => event.id);
     const allPositions = Array.from({ length: 12 }, (_, i) => i + 1);
     const positionsToDisplay = allPositions.filter(
@@ -62,7 +60,6 @@ function VolunteersManage() {
       sendForm.append(value, values[value]);
     }
 
-    console.log(sendForm, "dataaaaaaaaaaaa");
 
     try {
       const response = await axiosadminInstance.post(
@@ -76,7 +73,6 @@ function VolunteersManage() {
       );
       fetchData();
       resetForm();
-      console.log(response, "create events highlights");
       toast.success("EventHighlight created successfully");
     } catch (error) {
       console.log(error);
@@ -91,7 +87,6 @@ function VolunteersManage() {
         `admin/Vounteer-delete/${positionToDelete}/`
       );
 
-      console.log(response, "hfgtyrg delete");
       toast.success("Vounteer deleted successfully");
 
       const updatedVolunteers = volunteers.filter(

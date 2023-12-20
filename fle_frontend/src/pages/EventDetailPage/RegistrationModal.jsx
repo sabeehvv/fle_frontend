@@ -40,7 +40,6 @@ const EventRegistrationModal = ({
       const response = await axiosInstance.delete(
         `events/delete_join_to_event/${event_id}/`
       );
-      console.log(response, "hfgtyrg delete");
       toast.success(response.data.message);
       fetchData();
       onClose();

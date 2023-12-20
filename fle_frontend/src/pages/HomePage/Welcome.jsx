@@ -8,7 +8,7 @@ const WelcomePage = ({ Video_url }) => {
       <Grid container margin={"0px"}>
         {/* Left side: Text and description */}
         <Grid item xs={12} md={4}>
-          <div style={{ paddingLeft: "80px", paddingTop: "70px" }}>
+          <div style={{ paddingLeft: "60px", paddingTop: "120px" }}>
             <Typography
               variant="h1"
               gutterBottom
@@ -17,8 +17,8 @@ const WelcomePage = ({ Video_url }) => {
             >
               <span
                 style={{
-                  fontFamily: "Your-Special-Font",
-                  fontSize: "40px",
+                  fontFamily: "inter, sans-serif",
+                  fontSize: "30px",
                   // color: "#a3d637",
                 }}
               >
@@ -28,21 +28,14 @@ const WelcomePage = ({ Video_url }) => {
               <span
                 style={{
                   padding: "5px",
-                  fontSize: "30px",
-                  fontFamily: "Dancing Script, cursive",
+                  fontSize: "25px",
+                  fontFamily: "inter, sans-serif",
                   color: "#c752cb",
                 }}
               >
                 On a mission to build deeply inclusive societal alternatives.
               </span>
             </Typography>
-
-            <Typography
-              variant="body1"
-              align="center"
-              fontSize="clamp(1rem , 3rem ,1.25rem)"
-              color="Highlight"
-            ></Typography>
           </div>
         </Grid>
 

@@ -78,7 +78,6 @@ const EventDetails = () => {
       .then((response) => {
         setEventDetails(response.data.event);
         setparticipant(response.data.participant);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);

@@ -36,7 +36,6 @@ getToken(messaging)
       } catch (error) {
         console.log(error);
       }
-      console.log("Registration Token: ", currentToken);
     } else {
       console.log("No registration token available.");
     }

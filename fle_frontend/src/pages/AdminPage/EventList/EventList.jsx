@@ -68,7 +68,6 @@ const AdminEventListPage = () => {
 
         setIsloading(false);
         setEvents(updatedData);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);
@@ -125,8 +124,6 @@ const AdminEventListPage = () => {
         `admin/status-event/${EventId}/`
       );
 
-      console.log(response);
-      console.log("Approve event with ID:", EventId);
     } catch (error) {
       console.log(error);
     }

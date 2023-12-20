@@ -38,7 +38,6 @@ const EditEventPage = () => {
           image: null,
           maximum_participants: fetheddata.maximum_participants,
         });
-        console.log(response.data.event);
       })
       .catch((error) => {
         console.log(error);
@@ -58,10 +57,8 @@ const EditEventPage = () => {
   };
 
   const handleDateChange = (value) => {
-    console.log(value);
     const formattedDateTime = value.toISOString();
     setSelectedDate(formattedDateTime);
-    console.log(formattedDateTime);
   };
 
   const handleSubmit = async (e) => {
@@ -77,8 +74,6 @@ const EditEventPage = () => {
         sendForm.append(value, formData[value]);
       }
     }
-    console.log(sendForm, "dataaaaaaaaaaaa");
-    console.log(formData);
 
     try {
       const response = await axiosInstance.patch(

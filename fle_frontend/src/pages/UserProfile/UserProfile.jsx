@@ -68,25 +68,20 @@ const UserDetailsPage = () => {
       const userInfo = response.data.data;
       dispatch(setCredentials({userInfo, role : "USERS"}));
       navigate("/");
-      console.log(response.data);
     } catch (error) {
       if (error.response) {
         const responseData = error.response.data;
 
         if (responseData.error) {
           toast.error(responseData.error);
-          console.log("Error:", responseData.error);
         } else {
           toast.error(error.message);
-          console.log("An error occurred:", error.message);
         }
       } else {
         console.log("Network error:");
       }
     }
   };
-
-  console.log(userInfo, "userdetailslllllllllllllllllll");
 
   const initialValues = {
     first_name: userInfo.first_name || "",

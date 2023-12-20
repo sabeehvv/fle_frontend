@@ -12,7 +12,6 @@ function AdminDashboard() {
     axiosadminInstance
       .get("admin/dashboardData/")
       .then((response) => {
-        console.log(response.data);
         setUsersData(response.data.user);
         setEventsData(response.data.events);
       })

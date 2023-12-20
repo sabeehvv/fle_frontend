@@ -15,9 +15,6 @@ const CreateEventMain = () => {
 
   return (
     <>
-      <AppBar style={{ backgroundColor: "RGB(255 106 0)" }}>
-        <Toolbar></Toolbar>
-      </AppBar>
       <NavBar />
 
       <Box
@@ -26,11 +23,11 @@ const CreateEventMain = () => {
           flexDirection: "column",
 
           alignItems: "center",
-          backgroundImage: `url(https://res.cloudinary.com/dloscr748/image/upload/v1693440727/inclusion-events_zrolaq.webp)`,
-          backgroundSize: "100%",
+          // backgroundImage: `url(https://res.cloudinary.com/dloscr748/image/upload/v1693440727/inclusion-events_zrolaq.webp)`,
+          // backgroundSize: "50%",
           backgroundRepeat: "no-repeat",
           backgroundPosition: "center",
-          backgroundColor: "rgb(249,214,187)",
+          // backgroundColor: "rgb(249,214,187)",
         }}
       >
         <Box

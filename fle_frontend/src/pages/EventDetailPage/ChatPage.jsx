@@ -64,11 +64,9 @@ const Chat = ({ event_id }) => {
     axiosInstance
       .get(`chat/event/${event_id}/`)
       .then((response) => {
-        console.log(response.data);
         setChatMessages(response.data);
       })
       .catch((error) => {
-        console.log(error);
       });
   };
 
@@ -88,7 +86,6 @@ const Chat = ({ event_id }) => {
     };
     socket.onmessage = (event) => {
       const message = JSON.parse(event.data);
-      console.log(message, "new messages receaved");
       setChatMessages([...chatmessages, message.message]);
     };
     return () => {

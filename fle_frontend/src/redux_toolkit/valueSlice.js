@@ -31,7 +31,6 @@ export const valueSlice = createSlice({
       state.token = action.payload.token;
     },
     setCredentials: (state, action) => {
-      console.log(action.payload.role, "Role ");
       if (action.payload.role == "ADMIN") {
         state.AdminInfo = action.payload.userInfo;
       } else {
@@ -48,7 +47,6 @@ export const valueSlice = createSlice({
     },
     logout: (state, action) => {
       // Reset state to initial value
-      console.log(action.payload.role, "Role      llllllllll");
       Cookies.remove("UserId");
       if (action.payload.role == "ADMIN") {
         state.AdminInfo = { admin: null };

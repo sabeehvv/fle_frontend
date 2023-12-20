@@ -22,7 +22,6 @@ function EventHighlightForm() {
     axiosadminInstance
       .get("admin/EventHighlight/")
       .then((response) => {
-        console.log(response);
         setEventHighlights(response.data);
       })
       .catch((error) => {
@@ -35,7 +34,6 @@ function EventHighlightForm() {
   }, []);
 
   useEffect(() => {
-    console.log(eventHighlights);
     const fetchedPositions = eventHighlights.map((event) => event.id);
     const allPositions = Array.from({ length: 12 }, (_, i) => i + 1);
     const positionsToDisplay = allPositions.filter(
@@ -66,7 +64,6 @@ function EventHighlightForm() {
       sendForm.append(value, values[value]);
     }
 
-    console.log(sendForm, "dataaaaaaaaaaaa");
 
     try {
       const response = await axiosadminInstance.post(
@@ -81,7 +78,6 @@ function EventHighlightForm() {
       fetchData();
       resetForm();
       setImageUrl("");
-      console.log(response, "create events highlights");
       toast.success("EventHighlight created successfully");
     } catch (error) {
       console.log(error);
@@ -89,19 +85,12 @@ function EventHighlightForm() {
     }
   };
 
-  // console.log("Event Highlight submitted:", eventData);
-  // resetForm();
-
-  // setImageUrl("");
-  // };
-
   const handleDelete = async (positionToDelete) => {
     try {
       const response = await axiosadminInstance.delete(
         `admin/EventHighlight-delete/${positionToDelete}/`
       );
 
-      console.log(response, "hfgtyrg delete");
       toast.success("EventHighlight created successfully");
 
       const updatedEventHighlights = eventHighlights.filter(

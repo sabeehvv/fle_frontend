@@ -32,7 +32,6 @@ const AdminPage = () => {
       .then((response) => {
         setIsloading(false);
         setUsers(response.data);
-        console.log(users);
       })
       .catch((error) => {
         console.log(error);
@@ -58,8 +57,6 @@ const AdminPage = () => {
         `admin/status-user/${userId}/`
       );
 
-      console.log(response);
-      console.log("Block user with ID:", userId);
     } catch (error) {
       console.log(error);
     }

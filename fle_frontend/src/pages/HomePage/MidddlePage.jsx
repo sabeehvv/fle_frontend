@@ -17,7 +17,6 @@ const MiddlePage = () => {
     PublicAxios.get("home/EventHighlight-View/")
       .then((response) => {
         seteventList(response.data);
-        console.log(response.data, "event lists");
       })
       .catch((error) => {
         console.log(error);

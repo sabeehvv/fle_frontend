@@ -12,7 +12,6 @@ function LandingPageForm() {
     axiosadminInstance
       .get("admin/landing-page-View/")
       .then((response) => {
-        console.log(response.data);
         setAnnouncement(response.data.announcement_text);
         setVideoUrl(response.data.video_url);
       })
@@ -34,11 +33,8 @@ function LandingPageForm() {
         { video_url: videoUrl }
       );
 
-      console.log("Video URL submitted:", videoUrl);
-      console.log(response);
       toast.success("Updated successfully");
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.video_url);
     }
   };
@@ -51,11 +47,8 @@ function LandingPageForm() {
         { announcement_text: Announcement }
       );
 
-      console.log("Announcement submitted:", Announcement);
-      console.log(response);
       toast.success("Updated successfully");
     } catch (error) {
-      console.log(error);
       toast.error(error.response.data.error);
     }
   };

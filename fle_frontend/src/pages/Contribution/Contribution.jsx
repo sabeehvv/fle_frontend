@@ -101,7 +101,6 @@ const ContributionPage = () => {
       .get(`events/eventlist/detail/${event_id}/`)
       .then((response) => {
         setEventDetails(response.data.event);
-        console.log(response.data);
       })
       .catch((error) => {
         console.log(error);

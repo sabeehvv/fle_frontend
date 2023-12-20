@@ -101,8 +101,6 @@ const Form = () => {
     onError: (error) => console.log("Login Failed:", error),
   });
 
-  console.log(previousLocation, "prev location");
-
   useEffect(() => {
     const fetchGoogleUserInfo = async () => {
       if (user) {
@@ -117,7 +115,6 @@ const Form = () => {
             }
           );
           const googleUserInfo = response.data;
-          console.log(googleUserInfo);
           const userData = {
             email: googleUserInfo.email,
             is_emailverified: googleUserInfo.verified_email,
@@ -136,15 +133,11 @@ const Form = () => {
             );
             toast.success(`Welcome ${response.data.userInfo.first_name}`);
             const tokenString = JSON.stringify(response.data.token);
-            console.log("token", tokenString);
             const userInfo = response.data.userInfo;
             const pictureurl = response.data.picture_url;
-            console.log(userInfo.picture, "picture from userDitails");
-            console.log(pictureurl, "pictureurlllllllllllllllllll");
             Cookies.set("Tokens", tokenString, { expires: 7 });
             Cookies.set("UserId", userInfo.id, { expires: 7 });
             dispatch(setCredentials({ userInfo, role: "USERS", pictureurl }));
-            console.log(Cookies.get("Tokens"), "my tokens  1111");
             setTimeout(() => {
               navigate(previousLocation);
               dispatch(setLocation("/"));
@@ -174,12 +167,8 @@ const Form = () => {
     for (let value in values) {
       formData.append(value, values[value]);
     }
-    console.log(values.picture, "pictureeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-    console.log(values);
-    console.log(formData);
     try {
       const response = await publicInstance.post("register/", formData);
-      console.log(response.data);
 
       toast.success(response.data.message);
       toast(response.data.message_email, {
@@ -192,7 +181,6 @@ const Form = () => {
       });
       setPageType("login");
     } catch (error) {
-      console.log(error);
       if (error.response) {
         if (error.response.data.mobile) {
           toast.error(error.response.data.mobile[0]);
@@ -218,7 +206,6 @@ const Form = () => {
         duration: 2000,
       });
       const tokenString = JSON.stringify(response.data.token);
-      console.log("token", tokenString);
       const userInfo = response.data.userInfo;
       const pictureurl = response.data.picture_url;
 
@@ -242,13 +229,7 @@ const Form = () => {
     }
   };
 
-  const samplefun = () => {
-    console.log("dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd");
-    toast.error("Failed to login. Please check your credentials.");
-  };
-
   const handleFormSubmit = async (values, onSubmitProps) => {
-    console.log("dfdfdfdfdfdfdfdfd");
     if (isLogin) await login(values, onSubmitProps);
     if (isRegister) await register(values, onSubmitProps);
   };
@@ -525,10 +506,8 @@ const Form = () => {
                   setPageType(isLogin ? "register" : "login");
                   if (isLogin) {
                     setValues(initialValuesRegister);
-                    console.log("register...");
                   } else {
                     setValues(initialValuesLogin);
-                    console.log("login..................");
                   }
 
                   resetForm();
@@ -550,7 +529,6 @@ const Form = () => {
           </form>
         )}
       </Formik>
-      {/* <button onClick={samplefun}>heloooooooooooooo</button> */}
     </>
   );
 };

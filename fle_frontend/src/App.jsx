@@ -26,10 +26,10 @@ import ContributionList from "./pages/Contribution_list/ContributionList.jsx";
 import BannerDashboard from "./pages/AdminPage/Banners/BannerDashboard.jsx";
 import EditEventIndex from "./pages/EditEvent/index.jsx";
 import VolunteerList from "./pages/volunteers/volunteers.jsx";
+import Gemini_chat from "./pages/Gemini/Gemini_Chat.jsx";
 
 function App() {
   const mode = useSelector((state) => state.mode);
-  console.log(mode);
   const theme = useMemo(() => createTheme(themeSettings(mode)), [mode]);
 
   return (
@@ -45,14 +45,15 @@ function App() {
             <Route path="/verify-email/:token/" element={<VerifyEmail />} />
             <Route path="/Contributors" element={<ContributionList />} />
             <Route path="/volunteers" element={<VolunteerList />} />
+            <Route
+              path="/events/contribution/:event_id/"
+              element={<ContributionPage />}
+            />
 
             <Route element={<AuthRequire />}>
+              <Route path="/chat-with-gemini" element={<Gemini_chat />} />
               <Route path="/createEvent/" element={<CreateEventMain />} />
               <Route path="/profile" element={<UserProfileUpdate />} />
-              <Route
-                path="/events/contribution/:event_id/"
-                element={<ContributionPage />}
-              />
               <Route
                 path="/events/eventdetail/:event_id/"
                 element={<EventDetail />}

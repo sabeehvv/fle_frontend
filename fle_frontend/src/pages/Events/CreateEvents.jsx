@@ -61,8 +61,6 @@ const CreateEventPage = () => {
     for (let value in formData) {
       sendForm.append(value, formData[value]);
     }
-    console.log(sendForm, "dataaaaaaaaaaaa");
-    console.log(formData);
 
     try {
       const response = await axiosInstance.post(
@@ -106,7 +104,6 @@ const CreateEventPage = () => {
         align="center"
         gutterBottom
         style={{
-          fontFamily: "monospace",
           color: "primary",
           fontSize: "2.5rem",
         }}

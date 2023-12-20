@@ -47,7 +47,6 @@ const Navbar = ({ onSearchChange }) => {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const location = useLocation();
   const isNotRootPath = location.pathname !== "/";
-  console.log(location,'location')
 
   const theme = useTheme();
   const toggleDrawer = (open) => (event) => {
@@ -71,7 +70,6 @@ const Navbar = ({ onSearchChange }) => {
   useEffect(() => {
     const unsubscribe = onMessage(messaging, (payload) => {
       setNotification((prev) => [...prev, payload.notification]);
-      console.log("Message", payload);
     });
 
     return () => {
@@ -95,12 +93,17 @@ const Navbar = ({ onSearchChange }) => {
     navigate("/");
   };
 
-  console.log("welcome form navbar");
+  const gradientStyle = {
+    background: 'linear-gradient(90deg, #3683f1 70%, #ffddb7 50%)',
+    WebkitBackgroundClip: 'text',
+    color: 'transparent',
+  };
+
 
   return (
     <AppBar
       position="fixed"
-      style={{ backgroundColor: "rgba(255, 255, 255, 0.5)" }}
+      style={{ backgroundColor: "rgba(255, 255, 255, 0.2)" }}
     >
       <Toolbar>
         <div style={{ display: "flex", alignItems: "center", width: "50%" }}>
@@ -180,7 +183,13 @@ const Navbar = ({ onSearchChange }) => {
                     >
                       Home
                     </MenuItem>
-                    {/* <MenuItem >About</MenuItem> */}
+                    <MenuItem style={gradientStyle}
+                      onClick={() => {
+                        navigate("/chat-with-gemini");
+                      }}
+                    >
+                      Gemini
+                    </MenuItem>
                     <MenuItem
                       onClick={() => {
                         navigate("/events");
@@ -240,7 +249,7 @@ const Navbar = ({ onSearchChange }) => {
           ) : (
             <Box textAlign="right">
               <Button onClick={() => navigate("/")}>Home</Button>
-              {/* <Button color="inherit">About</Button> */}
+              <Button style={gradientStyle} onClick={() => navigate("/chat-with-gemini")}>Gemini</Button>
               {/* <Button color="inherit">Get Involved</Button> */}
               <Button onClick={() => navigate("/events")}>Events</Button>
               <Button onClick={() => navigate("/volunteers")}>
